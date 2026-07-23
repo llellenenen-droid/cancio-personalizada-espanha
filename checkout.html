@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desbloquear Canción HD | Revolut & IBAN Instantáneo</title>
+  <meta name="description" content="Desbloquea tu canción completa en MP3 HD mediante transferencia instantánea por Revolut o IBAN.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-checkout">
+
+  <header class="checkout-header">
+    <a href="index.html" class="logo-sm">🎵 CantaTuHistoria</a>
+    <div class="secure-badge">🔒 Pago 100% Seguro e Instantáneo</div>
+  </header>
+
+  <main class="checkout-main">
+    <div class="checkout-grid">
+      
+      <!-- Order Summary Card -->
+      <div class="summary-card">
+        <h2>Resumen del Pedido</h2>
+        <div class="summary-item">
+          <span>Canción Personalizada con IA (HD Master)</span>
+          <strong>€14.90</strong>
+        </div>
+        <div class="summary-item">
+          <span>Letra Original & Portada Digital</span>
+          <strong>GRATIS</strong>
+        </div>
+        <div class="summary-item">
+          <span>Entrega Inmediata por WhatsApp</span>
+          <strong>GRATIS</strong>
+        </div>
+        <hr class="divider">
+        <div class="summary-total">
+          <span>Total a Transferir:</span>
+          <span class="total-price">€14.90</span>
+        </div>
+      </div>
+
+      <!-- Revolut Payment Instructions Card -->
+      <div class="payment-card">
+        <h2>⚡ Pago Instantáneo vía Revolut / Transferencia IBAN</h2>
+        <p class="payment-subtitle">Al realizar la transferencia la app notificará tu pago al instante. Sin comisiones de intermediarios.</p>
+
+        <!-- Revolut Option 1: IBAN Transfer -->
+        <div class="iban-box">
+          <div class="iban-header">
+            <span class="iban-icon">🏦</span>
+            <div>
+              <strong>Transferencia SEPA / IBAN Revolut</strong>
+              <p>Transferencia instantánea nacional/europea</p>
+            </div>
+          </div>
+
+          <div class="iban-field">
+            <label>IBAN Revolut (España / Europa):</label>
+            <div class="copy-input">
+              <input type="text" id="ibanValue" value="ES91 2100 0418 4502 0005 1234" readonly>
+              <button onclick="copyToClipboard('ibanValue')">📋 Copiar IBAN</button>
+            </div>
+          </div>
+
+          <div class="iban-field">
+            <label>Titular de la cuenta:</label>
+            <input type="text" value="Tu Nombre Completo / Revolut Account" class="input-readonly" readonly>
+          </div>
+
+          <div class="iban-field">
+            <label>Concepto de la transferencia (Obligatorio):</label>
+            <input type="text" id="orderConcept" value="Cancion - Carmen" class="input-readonly" readonly>
+          </div>
+        </div>
+
+        <!-- Revolut Option 2: Revtag / Revolut Pay Link -->
+        <div class="revtag-box">
+          <div class="revtag-header">
+            <span class="revtag-icon">⚡</span>
+            <div>
+              <strong>¿Usas la App de Revolut?</strong>
+              <p>Envía directo por tu Revtag en 1 clic</p>
+            </div>
+          </div>
+          <div class="copy-input">
+            <input type="text" id="revtagValue" value="@turevoluttag" readonly>
+            <button onclick="copyToClipboard('revtagValue')">📋 Copiar Tag</button>
+          </div>
+        </div>
+
+        <!-- Submit Proof / WhatsApp Redirect -->
+        <div class="proof-action">
+          <h3>Paso Final: Confirma tu transferencia</h3>
+          <p>Una vez realizada la transferencia de €14,90, pulsa el botón para avisarnos por WhatsApp. Verificaremos tu entrada y te enviaremos el enlace de descarga HD.</p>
+          
+          <button class="btn btn-whatsapp full-w" onclick="sendWhatsAppProof()">
+            📲 Confirmar Pago y Enviar Comprobante por WhatsApp
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
