@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz: Crea tu Canción Personalizada | CantaTuHistoria</title>
+  <meta name="description" content="Responde 9 preguntas sobre tu historia y crearemos tu canción personalizada en español lista para escuchar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-quiz">
+
+  <!-- Header -->
+  <header class="quiz-header">
+    <a href="index.html" class="logo-sm">🎵 CantaTuHistoria</a>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <span class="step-indicator" id="stepIndicator">Paso 1 de 9</span>
+  </header>
+
+  <!-- Quiz Form Card -->
+  <main class="quiz-main">
+    <div class="quiz-card" id="quizCard">
+      
+      <!-- STEP 1 -->
+      <div class="step-pane active" data-step="1">
+        <h2>¿Para quién es la canción?</h2>
+        <p class="subtitle">Selecciona a la persona homenajeada — para ella se escribirá la letra.</p>
+        <div class="options-grid grid-3">
+          <button class="opt-btn" onclick="selectOption(1, 'Novia', '💕')"><span>💕</span> Novia</button>
+          <button class="opt-btn" onclick="selectOption(1, 'Esposa', '💍')"><span>💍</span> Esposa</button>
+          <button class="opt-btn" onclick="selectOption(1, 'Novio', '❤️')"><span>❤️</span> Novio</button>
+          <button class="opt-btn" onclick="selectOption(1, 'Marido', '👨‍❤️‍👩')"><span>👨‍❤️‍👩</span> Marido</button>
+          <button class="opt-btn" onclick="selectOption(1, 'Madre', '🤱')"><span>🤱</span> Madre</button>
+          <button class="opt-btn" onclick="selectOption(1, 'Padre', '👨')"><span>👨</span> Padre</button>
+          <button class="opt-btn" onclick="selectOption(1, 'Abuela/o', '👵')"><span>👵</span> Abuela/o</button>
+          <button class="opt-btn" onclick="selectOption(1, 'Hija/o', '👶')"><span>👶</span> Hija/o</button>
+          <button class="opt-btn" onclick="selectOption(1, 'Amiga/o', '🤝')"><span>🤝</span> Amiga/o</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-pane" data-step="2">
+        <h2>¿Cuál es el motivo o la ocasión?</h2>
+        <p class="subtitle">Esto definirá el sentimiento de la canción.</p>
+        <div class="options-grid grid-3">
+          <button class="opt-btn" onclick="selectOption(2, 'Aniversario de Pareja', '🎉')"><span>🎉</span> Aniversario de Pareja</button>
+          <button class="opt-btn" onclick="selectOption(2, 'Boda / Matrimonio', '💒')"><span>💒</span> Boda / Matrimonio</button>
+          <button class="opt-btn" onclick="selectOption(2, 'Cumpleaños', '🎂')"><span>🎂</span> Cumpleaños</button>
+          <button class="opt-btn" onclick="selectOption(2, 'Día de la Madre / Padre', '💐')"><span>💐</span> Día de la Madre / Padre</button>
+          <button class="opt-btn" onclick="selectOption(2, 'San Valentín', '💌')"><span>💌</span> San Valentín</button>
+          <button class="opt-btn" onclick="selectOption(2, 'Declaración de Amor', '💖')"><span>💖</span> Declaración de Amor</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-pane" data-step="3">
+        <h2>¿Cómo te llamas tú y la otra persona?</h2>
+        <p class="subtitle">Sus nombres cantados directamente en el estribillo.</p>
+        <div class="form-group">
+          <label>Tu nombre:</label>
+          <input type="text" id="senderName" placeholder="Ej: Carlos" class="input-field">
+        </div>
+        <div class="form-group">
+          <label>Nombre de la persona especial:</label>
+          <input type="text" id="recipientName" placeholder="Ej: Carmen" class="input-field">
+        </div>
+        <button class="btn btn-primary full-w" onclick="nextStep()">Continuar →</button>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-pane" data-step="4">
+        <h2>¿Qué estilo musical le gustaría más?</h2>
+        <p class="subtitle">Elige el género musical en español que más la identifique.</p>
+        <div class="options-grid grid-2">
+          <button class="opt-btn" onclick="selectOption(4, 'Pop Español', '🎸')"><span>🎸</span> Pop Español</button>
+          <button class="opt-btn" onclick="selectOption(4, 'Balada Romántica', '🎹')"><span>🎹</span> Balada Romántica</button>
+          <button class="opt-btn" onclick="selectOption(4, 'Flamenco Fusión / Pop', '💃')"><span>💃</span> Flamenco Fusión</button>
+          <button class="opt-btn" onclick="selectOption(4, 'Reggaeton Romántico', '🎶')"><span>🎶</span> Reggaeton Romántico</button>
+          <button class="opt-btn" onclick="selectOption(4, 'Indietrónica', '🎧')"><span>🎧</span> Indietrónica</button>
+          <button class="opt-btn" onclick="selectOption(4, 'Acústico / Guitarra', '🪕')"><span>🪕</span> Acústico / Guitarra</button>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-pane" data-step="5">
+        <h2>¿Qué tipo de voz prefieres?</h2>
+        <p class="subtitle">Elige quién cantará vuestra historia.</p>
+        <div class="options-grid grid-2">
+          <button class="opt-btn" onclick="selectOption(5, 'Voz Femenina Emotiva', '👩‍🎤')"><span>👩‍🎤</span> Voz Femenina Emotiva</button>
+          <button class="opt-btn" onclick="selectOption(5, 'Voz Masculina Cálida', '👨‍🎤')"><span>👨‍🎤</span> Voz Masculina Cálida</button>
+          <button class="opt-btn" onclick="selectOption(5, 'Dúo Femenino/Masculino', '👩‍🎤👨‍🎤')"><span>👩‍🎤👨‍🎤</span> Dúo Mixto</button>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step-pane" data-step="6">
+        <h2>Cuéntanos momentos clave de vuestra historia</h2>
+        <p class="subtitle">¿Dónde os conocisteis? ¿Algún viaje, mania o chiste interno? (Máx. 500 caracteres)</p>
+        <div class="form-group">
+          <textarea id="userStory" class="textarea-field" rows="4" placeholder="Ej: Nos conocimos en Barcelona en 2018. Nos encanta viajar a la playa, siempre se ríe de cómo me tomo el café por las mañanas y nos llamamos 'Cuchufleto'..."></textarea>
+        </div>
+        <button class="btn btn-primary full-w" onclick="nextStep()">Continuar →</button>
+      </div>
+
+      <!-- STEP 7 -->
+      <div class="step-pane" data-step="7">
+        <h2>¿Hay alguna frase especial que DEBA estar en la letra?</h2>
+        <p class="subtitle">Opcional. Una frase con significado único.</p>
+        <div class="form-group">
+          <input type="text" id="specialPhrase" placeholder="Ej: 'Hasta la luna y de vuelta'" class="input-field">
+        </div>
+        <button class="btn btn-primary full-w" onclick="nextStep()">Continuar →</button>
+      </div>
+
+      <!-- STEP 8 -->
+      <div class="step-pane" data-step="8">
+        <h2>¿A qué número de WhatsApp enviamos la canción?</h2>
+        <p class="subtitle">Te notificaremos por WhatsApp en cuanto la canción esté lista (en unos 3 a 5 minutos).</p>
+        <div class="form-group">
+          <label>Número de WhatsApp (con prefijo +34 para España):</label>
+          <input type="tel" id="userPhone" placeholder="+34 612 34 56 78" class="input-field">
+        </div>
+        <button class="btn btn-primary full-w" onclick="startGeneration()">🎵 Generar Mi Canción Ahora</button>
+      </div>
+
+      <!-- STEP 9 (GENERATION & PREVIEW) -->
+      <div class="step-pane" data-step="9">
+        <div class="generation-loader" id="genLoader">
+          <div class="spinner"></div>
+          <h2 id="genStatus">Creando la letra única con IA...</h2>
+          <p id="genSub">Escribiendo versos personalizados en español para ti...</p>
+        </div>
+
+        <div class="preview-result hidden" id="previewResult">
+          <div class="badge-success">🎉 ¡Tu canción ha sido creada con éxito!</div>
+          <h2 id="songTitle">"Nuestra Historia en Cada Verso"</h2>
+          <p class="song-authors" id="songAuthors">Para: Carmen | Creado por: Carlos</p>
+          
+          <div class="audio-player-box">
+            <div class="waveform-visualizer">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <button class="btn-play-big" id="playBtn" onclick="toggleAudio()">▶ Escuchar Previa Completa</button>
+            <p class="audio-timer">0:00 / 2:45</p>
+          </div>
+
+          <div class="lyrics-box">
+            <h3>📜 Letra Generada:</h3>
+            <pre id="lyricsContent">
+(Estrofa 1)
+Recuerdo aquél día bajo el cielo plateado,
+cuando tus ojos me miraron por primera vez.
+Entre risas y cafés, el mundo se paró,
+y supe que a tu lado comenzaba mi lugar...
+
+(Estribillo)
+¡Carmen, mi amor, mi luz y mi camino!
+Carlos te canta lo que siente el corazón,
+porque contigo cada día es un regalo,
+nuestra historia convertida en canción.
+            </pre>
+          </div>
+
+          <div class="cta-unlock">
+            <h3>¿Te ha gustado el resultado?</h3>
+            <p>Descarga la canción completa en calidad máster HD sin marca de agua y envíala por WhatsApp.</p>
+            <a href="checkout.html" class="btn btn-hero full-w">🔓 Desbloquear y Recibir Canción Completa (€14,90)</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
