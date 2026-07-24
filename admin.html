@@ -221,7 +221,9 @@
       <ol>
         <li>Receba o pedido no WhatsApp (dados do quiz).</li>
         <li>Vá ao <a href="https://suno.ai" target="_blank">suno.ai</a> → gere a música → baixe o MP3.</li>
-        <li>Faça upload do MP3 no <a href="https://supabase.com" target="_blank">Supabase Storage</a> (1GB grátis) → copie o link público do arquivo.</li>
+        <li>Faça upload do MP3 no seu aplicativo do <strong>Google Drive</strong>.</li>
+        <li>Clique nos 3 pontinhos do arquivo → "Gerenciar Acesso" → mude para <strong>"Qualquer pessoa com o link"</strong>.</li>
+        <li>Copie o link do Google Drive e cole aqui embaixo.</li>
         <li>Cole o link do áudio e o nome do cliente aqui embaixo.</li>
         <li>Clique em "Gerar Links" → copie a mensagem de WhatsApp da <strong>prévia</strong> e envie ao cliente.</li>
         <li>Quando o cliente pagar → copie a mensagem do <strong>delivery</strong> e envie.</li>
@@ -236,7 +238,7 @@
       <input type="text" id="clientName" placeholder="Ex: Carmen, María, Pablo...">
 
       <label>Link do áudio MP3 (do Supabase Storage ou Google Drive):</label>
-      <input type="url" id="audioUrl" placeholder="https://xxx.supabase.co/storage/v1/.../carmen-boda.mp3">
+      <input type="url" id="audioUrl" placeholder="Cole o link do Google Drive aqui (Ex: https://drive.google.com/file/d/...)">
 
       <label>WhatsApp do cliente (com código do país):</label>
       <input type="text" id="clientPhone" placeholder="Ex: 34612345678">
@@ -294,12 +296,19 @@
 
     function generateLinks() {
       const name = document.getElementById('clientName').value.trim();
-      const audioUrl = document.getElementById('audioUrl').value.trim();
+      let audioUrl = document.getElementById('audioUrl').value.trim();
       const phone = document.getElementById('clientPhone').value.trim();
 
       if (!name || !audioUrl) {
         alert('Preencha o nome do cliente e o link do áudio.');
         return;
+      }
+
+      // Converter link do Google Drive para link direto de download (necessário para o player de áudio)
+      const gdriveMatch = audioUrl.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (gdriveMatch && gdriveMatch[1]) {
+        const fileId = gdriveMatch[1];
+        audioUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
       }
 
       const encodedAudio = encodeURIComponent(audioUrl);
