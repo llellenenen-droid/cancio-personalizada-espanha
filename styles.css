@@ -222,9 +222,9 @@ h1, h2, h3, .serif-title {
   gap: 20px;
 }
 
-.grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 
 .card {
   background: var(--white);
@@ -420,6 +420,29 @@ h1, h2, h3, .serif-title {
   border-radius: 24px;
   border: 1px solid #E5E0F0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+@media (max-width: 480px) {
+  .quiz-card {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+  .step-pane h2 {
+    font-size: 1.3rem;
+  }
+  .subtitle {
+    font-size: 0.85rem;
+  }
+  .opt-btn {
+    padding: 12px 10px;
+    font-size: 0.9rem;
+  }
+  .options-grid.grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .options-grid.grid-2 {
+    grid-template-columns: 1fr;
+  }
 }
 
 .step-pane {
