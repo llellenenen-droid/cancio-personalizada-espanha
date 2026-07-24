@@ -25,7 +25,7 @@
         <h2>Resumen del Pedido</h2>
         <div class="summary-item">
           <span>Canción Personalizada con IA (HD Master)</span>
-          <strong>€14.90</strong>
+          <strong>€29.90</strong>
         </div>
         <div class="summary-item">
           <span>Letra Original & Portada Digital</span>
@@ -38,7 +38,7 @@
         <hr class="divider">
         <div class="summary-total">
           <span>Total a Transferir:</span>
-          <span class="total-price">€14.90</span>
+          <span class="total-price">€29.90</span>
         </div>
       </div>
 
@@ -58,16 +58,29 @@
           </div>
 
           <div class="iban-field">
-            <label>IBAN Revolut (España / Europa):</label>
+            <label>IBAN Revolut (Europa):</label>
             <div class="copy-input">
-              <input type="text" id="ibanValue" value="ES91 2100 0418 4502 0005 1234" readonly>
+              <input type="text" id="ibanValue" value="LT11 3250 0497 0770 8847" readonly>
               <button onclick="copyToClipboard('ibanValue')">📋 Copiar IBAN</button>
             </div>
           </div>
 
           <div class="iban-field">
-            <label>Titular de la cuenta:</label>
-            <input type="text" value="Tu Nombre Completo / Revolut Account" class="input-readonly" readonly>
+            <label>BIC / SWIFT:</label>
+            <div class="copy-input">
+              <input type="text" id="bicValue" value="REVOLT21" readonly>
+              <button onclick="copyToClipboard('bicValue')">📋 Copiar BIC</button>
+            </div>
+          </div>
+
+          <div class="iban-field">
+            <label>Beneficiario:</label>
+            <input type="text" value="Alexandre Nenen Dos Santos" class="input-readonly" readonly>
+          </div>
+
+          <div class="iban-field">
+            <label>Banco:</label>
+            <input type="text" value="Revolut Bank UAB - Vilnius, Lithuania" class="input-readonly" readonly>
           </div>
 
           <div class="iban-field">
@@ -76,25 +89,12 @@
           </div>
         </div>
 
-        <!-- Revolut Option 2: Revtag / Revolut Pay Link -->
-        <div class="revtag-box">
-          <div class="revtag-header">
-            <span class="revtag-icon">⚡</span>
-            <div>
-              <strong>¿Usas la App de Revolut?</strong>
-              <p>Envía directo por tu Revtag en 1 clic</p>
-            </div>
-          </div>
-          <div class="copy-input">
-            <input type="text" id="revtagValue" value="@turevoluttag" readonly>
-            <button onclick="copyToClipboard('revtagValue')">📋 Copiar Tag</button>
-          </div>
-        </div>
+
 
         <!-- Submit Proof / WhatsApp Redirect -->
         <div class="proof-action">
           <h3>Paso Final: Confirma tu transferencia</h3>
-          <p>Una vez realizada la transferencia de €14,90, pulsa el botón para avisarnos por WhatsApp. Verificaremos tu entrada y te enviaremos el enlace de descarga HD.</p>
+          <p>Una vez realizada la transferencia de €29,90, pulsa el botón para avisarnos por WhatsApp. Verificaremos tu entrada y te enviaremos el enlace de descarga HD.</p>
           
           <button class="btn btn-whatsapp full-w" onclick="sendWhatsAppProof()">
             📲 Confirmar Pago y Enviar Comprobante por WhatsApp
