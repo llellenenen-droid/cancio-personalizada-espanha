@@ -1,3 +1,7 @@
+// ========================================
+// CantaTuHistoria - Quiz & Flow Controller
+// ========================================
+
 // Quiz State
 let currentStep = 1;
 const totalSteps = 9;
@@ -13,20 +17,39 @@ let quizData = {
   phone: ''
 };
 
-// Handle Option Selection in Quiz
+// YOUR WhatsApp number (Alexandre)
+const OWNER_WHATSAPP = '5511953493969';
+
+// ========================================
+// QUIZ NAVIGATION
+// ========================================
+
 function selectOption(step, value, emoji) {
   if (step === 1) quizData.recipient = value;
   if (step === 2) quizData.occasion = value;
   if (step === 4) quizData.genre = value;
   if (step === 5) quizData.voice = value;
 
-  nextStep();
+  // Highlight selected button
+  const pane = document.querySelector(`.step-pane[data-step="${step}"]`);
+  if (pane) {
+    pane.querySelectorAll('.opt-btn').forEach(btn => {
+      btn.style.borderColor = '#E5E0F0';
+      btn.style.background = '#fff';
+    });
+    event.currentTarget.style.borderColor = '#7C3AED';
+    event.currentTarget.style.background = '#FDF2F8';
+  }
+
+  // Auto-advance after short delay
+  setTimeout(() => nextStep(), 300);
 }
 
 function nextStep() {
+  // Validate current step
   if (currentStep === 3) {
-    const sName = document.getElementById('senderName')?.value;
-    const rName = document.getElementById('recipientName')?.value;
+    const sName = document.getElementById('senderName')?.value?.trim();
+    const rName = document.getElementById('recipientName')?.value?.trim();
     if (!sName || !rName) {
       alert('Por favor, indica ambos nombres para continuar.');
       return;
@@ -36,145 +59,154 @@ function nextStep() {
   }
 
   if (currentStep === 6) {
-    quizData.story = document.getElementById('userStory')?.value || '';
+    quizData.story = document.getElementById('userStory')?.value?.trim() || '';
   }
 
   if (currentStep === 7) {
-    quizData.phrase = document.getElementById('specialPhrase')?.value || '';
+    quizData.phrase = document.getElementById('specialPhrase')?.value?.trim() || '';
   }
 
   if (currentStep < totalSteps) {
-    document.querySelector(`.step-pane[data-step="${currentStep}"]`)?.classList.remove('active');
-    currentStep++;
-    document.querySelector(`.step-pane[data-step="${currentStep}"]`)?.classList.add('active');
+    // Hide current step
+    const currentPane = document.querySelector(`.step-pane[data-step="${currentStep}"]`);
+    if (currentPane) currentPane.classList.remove('active');
 
-    // Update Progress Bar
+    // Show next step
+    currentStep++;
+    const nextPane = document.querySelector(`.step-pane[data-step="${currentStep}"]`);
+    if (nextPane) nextPane.classList.add('active');
+
+    // Update progress bar
     const progressPercent = Math.round((currentStep / totalSteps) * 100);
     const pBar = document.getElementById('progressBar');
     const sInd = document.getElementById('stepIndicator');
-
     if (pBar) pBar.style.width = `${progressPercent}%`;
     if (sInd) sInd.textContent = `Paso ${currentStep} de ${totalSteps}`;
   }
 }
 
-// Start AI Generation Simulation
+// ========================================
+// SONG REQUEST - Send quiz data to YOUR WhatsApp
+// ========================================
+
 function startGeneration() {
-  const phone = document.getElementById('userPhone')?.value;
+  const phone = document.getElementById('userPhone')?.value?.trim();
   if (!phone) {
-    alert('Por favor, introduce tu número de WhatsApp para notificarle.');
+    alert('Por favor, introduce tu número de WhatsApp.');
     return;
   }
   quizData.phone = phone;
 
-  nextStep(); // Move to Step 9
+  // Move to step 9 (waiting screen)
+  nextStep();
 
-  const loader = document.getElementById('genLoader');
-  const statusTxt = document.getElementById('genStatus');
-  const subTxt = document.getElementById('genSub');
-  const result = document.getElementById('previewResult');
+  // Save order to localStorage
+  localStorage.setItem('cantaTuHistoriaOrder', JSON.stringify(quizData));
 
-  const steps = [
-    { title: 'Generando la letra en español...', sub: 'Analizando vuestros recuerdos y nombres...' },
-    { title: 'Componiendo melodía e instrumentos...', sub: `Creando arreglo musical en estilo ${quizData.genre || 'Pop Español'}...` },
-    { title: 'Masterizando la voz y audio HD...', sub: 'Ajustando mezcla en calidad estúdio...' }
-  ];
+  // Build WhatsApp message with all quiz data for YOU (Alexandre)
+  const message = `🎵 *NUEVO PEDIDO - CantaTuHistoria*
 
-  let stepIdx = 0;
-  const interval = setInterval(() => {
-    stepIdx++;
-    if (stepIdx < steps.length) {
-      if (statusTxt) statusTxt.textContent = steps[stepIdx].title;
-      if (subTxt) subTxt.textContent = steps[stepIdx].sub;
-    } else {
-      clearInterval(interval);
-      if (loader) loader.classList.add('hidden');
-      if (result) result.classList.remove('hidden');
+📋 *Datos del Quiz:*
+━━━━━━━━━━━━━━━━━━
+👤 *¿Para quién?:* ${quizData.recipient}
+🎉 *Ocasión:* ${quizData.occasion}
+✍️ *Nombre del creador:* ${quizData.senderName}
+💝 *Nombre del homenajeado:* ${quizData.recipientName}
+🎸 *Estilo musical:* ${quizData.genre}
+🎤 *Tipo de voz:* ${quizData.voice}
 
-      // Populate preview details
-      const titleEl = document.getElementById('songTitle');
-      const authEl = document.getElementById('songAuthors');
-      if (titleEl) titleEl.textContent = `"${quizData.recipientName || 'Un Amor Único'} - Canción Especial"`;
-      if (authEl) authEl.textContent = `Para: ${quizData.recipientName || 'Ti'} | Creado por: ${quizData.senderName || 'Tu pareja'}`;
+📖 *Historia / Recuerdos:*
+${quizData.story || '(No proporcionó historia)'}
 
-      // Save order details to localStorage for Checkout
-      localStorage.setItem('cantaTuHistoriaOrder', JSON.stringify(quizData));
-    }
-  }, 2000);
+💬 *Frase especial:*
+${quizData.phrase || '(Ninguna)'}
+
+📱 *WhatsApp del cliente:* ${quizData.phone}
+━━━━━━━━━━━━━━━━━━
+
+⚡ *Acción:* Genera la canción en suno.ai y envía la previa al cliente.`;
+
+  const encodedMsg = encodeURIComponent(message);
+
+  // Open WhatsApp to send quiz data to Alexandre
+  // Small delay so the waiting screen shows first
+  setTimeout(() => {
+    window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${encodedMsg}`, '_blank');
+  }, 1500);
 }
 
-// Toggle Audio Preview Player
+// ========================================
+// AUDIO PLAYER (Preview & Demo)
+// ========================================
+
 let isPlaying = false;
-let audioCtx = null;
 
 function toggleAudio() {
   const playBtn = document.getElementById('playBtn');
   if (!isPlaying) {
     isPlaying = true;
     if (playBtn) playBtn.textContent = '⏸ Pausar Previa';
-    playSyntheticTone();
   } else {
     isPlaying = false;
     if (playBtn) playBtn.textContent = '▶ Escuchar Previa Completa';
   }
 }
 
-function playSyntheticTone() {
-  try {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(440, audioCtx.currentTime); // A4 note
-    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start();
-    setTimeout(() => {
-      osc.stop();
-      isPlaying = false;
-      const playBtn = document.getElementById('playBtn');
-      if (playBtn) playBtn.textContent = '▶ Escuchar Previa Completa';
-    }, 4000);
-  } catch (e) {
-    console.log('Audio Context Error', e);
-  }
-}
-
 function playDemo(btnElement, genre) {
-  alert(`▶ Reproduciendo ejemplo de canción en estilo ${genre.toUpperCase()} (Español).`);
+  const genreNames = {
+    'pop': 'Pop Español',
+    'balada': 'Balada Romántica',
+    'flamenco': 'Flamenco Fusión'
+  };
+  alert(`▶ Próximamente: ejemplo de canción en estilo ${genreNames[genre] || genre}.\n\nLas muestras estarán disponibles muy pronto.`);
 }
 
-// Clipboard Copy Helper for Revolut IBAN / Revtag
+// ========================================
+// CHECKOUT HELPERS
+// ========================================
+
+// Copy to clipboard (for IBAN, BIC, etc.)
 function copyToClipboard(elementId) {
   const inputEl = document.getElementById(elementId);
   if (inputEl) {
     inputEl.select();
     inputEl.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(inputEl.value).then(() => {
-      alert('¡Copiado al portapapeles exitosamente!');
+      alert('¡Copiado al portapapeles!');
     }).catch(() => {
       alert('Copiado: ' + inputEl.value);
     });
   }
 }
 
-// Redirect to WhatsApp with Payment Proof
+// Send payment proof via WhatsApp to Alexandre
 function sendWhatsAppProof() {
   const savedData = JSON.parse(localStorage.getItem('cantaTuHistoriaOrder') || '{}');
   const recipientName = savedData.recipientName || 'la persona especial';
   const senderName = savedData.senderName || 'Cliente';
+  const clientPhone = savedData.phone || '';
 
-  const message = `¡Hola! He realizado la transferencia de €29.90 para la canción de ${recipientName} (Creada por ${senderName}). Adjunto mi comprobante para liberar la canción en HD.`;
+  const message = `💳 *COMPROBANTE DE PAGO - CantaTuHistoria*
+
+👤 *Cliente:* ${senderName}
+💝 *Canción para:* ${recipientName}
+📱 *WhatsApp del cliente:* ${clientPhone}
+💰 *Importe:* €29.90
+
+✅ He realizado la transferencia al IBAN. Adjunto el comprobante a continuación.
+
+⚡ Por favor, liberad mi canción en HD.`;
+
   const encodedMsg = encodeURIComponent(message);
-  
-  // Target WhatsApp number for receiving proofs
-  const targetWhatsApp = '5511953493969';
-  window.open(`https://wa.me/${targetWhatsApp}?text=${encodedMsg}`, '_blank');
+  window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${encodedMsg}`, '_blank');
 }
 
-// On Checkout Load: Hydrate Order details
+// ========================================
+// ON PAGE LOAD
+// ========================================
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Hydrate checkout concept with recipient name
   const conceptInput = document.getElementById('orderConcept');
   if (conceptInput) {
     const savedData = JSON.parse(localStorage.getItem('cantaTuHistoriaOrder') || '{}');
