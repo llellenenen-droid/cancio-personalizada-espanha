@@ -751,3 +751,85 @@ h1, h2, h3, .serif-title {
   color: var(--text-muted);
   margin-top: 6px;
 }
+
+
+/* --- MARKETING ADDITIONS --- */
+.announcement-bar {
+  background-color: #E11D48;
+  color: white;
+  text-align: center;
+  padding: 10px 15px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(225, 29, 72, 0.3);
+}
+
+.price-strike {
+  text-decoration: line-through;
+  color: #94A3B8;
+  font-size: 0.9em;
+  margin-right: 8px;
+}
+.price-highlight {
+  color: #E11D48;
+  font-weight: 800;
+  font-size: 1.1em;
+}
+
+.reviews-section {
+  padding: 60px 20px;
+  background-color: #FAFAFA;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.review-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  text-align: left;
+  position: relative;
+}
+.review-stars {
+  color: #FBBF24;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+.review-text {
+  font-size: 0.95rem;
+  color: #334155;
+  font-style: italic;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+.review-author {
+  font-weight: 700;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.review-author span {
+  font-size: 0.85rem;
+  color: #10B981;
+  font-weight: 500;
+}
+.review-badge {
+  display: inline-block;
+  background: #FEF3C7;
+  color: #B45309;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
