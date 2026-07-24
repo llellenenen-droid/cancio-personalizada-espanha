@@ -122,9 +122,7 @@ ${quizData.story || '(No proporcionó historia)'}
 ${quizData.phrase || '(Ninguna)'}
 
 📱 *WhatsApp del cliente:* ${quizData.phone}
-━━━━━━━━━━━━━━━━━━
-
-⚡ *Acción:* Genera la canción en suno.ai y envía la previa al cliente.`;
+━━━━━━━━━━━━━━━━━━`;
 
   const encodedMsg = encodeURIComponent(message);
 
