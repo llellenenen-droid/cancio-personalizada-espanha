@@ -238,6 +238,14 @@
       <label>Nome do homenageado (cliente):</label>
       <input type="text" id="clientName" placeholder="Ex: Carmen, María, Pablo...">
 
+      <div class="form-group" style="margin-bottom: 20px; padding: 15px; background: #F3F0FF; border-radius: 12px; border: 1px dashed #7C3AED;">
+        <label style="color: #7C3AED;">📤 Upload Rápido (Celular/PC)</label>
+        <p style="font-size: 0.85rem; color: #64648C; margin-bottom: 10px;">Selecione o MP3 baixado do Suno para enviar direto pro seu servidor.</p>
+        <input type="file" id="audioFile" accept="audio/mp3,audio/*" style="margin-bottom: 10px; width: 100%;" />
+        <button class="btn btn-primary" type="button" onclick="uploadToSupabase()" style="width: 100%; padding: 10px;">Fazer Upload pro Supabase</button>
+        <p id="uploadStatus" style="font-size: 0.85rem; margin-top: 10px; font-weight: bold; text-align: center;"></p>
+      </div>
+
       <label>Link do áudio MP3 (do Supabase Storage ou Google Drive):</label>
       <input type="url" id="audioUrl" placeholder="Cole o link do Google Drive aqui (Ex: https://drive.google.com/file/d/...)">
 
