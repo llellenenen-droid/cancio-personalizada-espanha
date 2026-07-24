@@ -127,49 +127,36 @@
         <button class="btn btn-primary full-w" onclick="startGeneration()">🎵 Generar Mi Canción Ahora</button>
       </div>
 
-      <!-- STEP 9 (GENERATION & PREVIEW) -->
+      <!-- STEP 9 (WAITING SCREEN) -->
       <div class="step-pane" data-step="9">
-        <div class="generation-loader" id="genLoader">
+        <div style="padding: 30px 0; text-align: center;">
           <div class="spinner"></div>
-          <h2 id="genStatus">Creando la letra única con IA...</h2>
-          <p id="genSub">Escribiendo versos personalizados en español para ti...</p>
-        </div>
-
-        <div class="preview-result hidden" id="previewResult">
-          <div class="badge-success">🎉 ¡Tu canción ha sido creada con éxito!</div>
-          <h2 id="songTitle">"Nuestra Historia en Cada Verso"</h2>
-          <p class="song-authors" id="songAuthors">Para: Carmen | Creado por: Carlos</p>
+          <h2 style="margin-top: 20px; font-size: 1.5rem;">🎵 ¡Tu solicitud ha sido enviada!</h2>
+          <p style="color: #64648C; margin: 15px 0; line-height: 1.7; font-size: 1rem;">
+            Nuestro equipo está componiendo tu canción personalizada ahora mismo.
+          </p>
           
-          <div class="audio-player-box">
-            <div class="waveform-visualizer">
-              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <button class="btn-play-big" id="playBtn" onclick="toggleAudio()">▶ Escuchar Previa Completa</button>
-            <p class="audio-timer">0:00 / 2:45</p>
+          <div style="background: #F3F0FF; border: 1px solid #E5E0F0; border-radius: 16px; padding: 20px; margin: 25px 0; text-align: left;">
+            <p style="font-weight: 700; color: #1A1A2E; margin-bottom: 8px;">📱 ¿Qué pasa ahora?</p>
+            <ol style="color: #64648C; padding-left: 20px; line-height: 2;">
+              <li>Recibirás un mensaje en tu <strong>WhatsApp</strong> en los próximos minutos con la <strong>previa gratuita</strong> de tu canción.</li>
+              <li>Escucha la previa y, si te emociona, podrás <strong>desbloquear la versión HD</strong> por solo €29,90.</li>
+              <li>Tras el pago, recibirás el <strong>enlace de descarga</strong> en HD directamente en tu WhatsApp.</li>
+            </ol>
           </div>
 
-          <div class="lyrics-box">
-            <h3>📜 Letra Generada:</h3>
-            <pre id="lyricsContent">
-(Estrofa 1)
-Recuerdo aquél día bajo el cielo plateado,
-cuando tus ojos me miraron por primera vez.
-Entre risas y cafés, el mundo se paró,
-y supe que a tu lado comenzaba mi lugar...
-
-(Estribillo)
-¡Carmen, mi amor, mi luz y mi camino!
-Carlos te canta lo que siente el corazón,
-porque contigo cada día es un regalo,
-nuestra historia convertida en canción.
-            </pre>
+          <div style="background: #DCFCE7; border-radius: 12px; padding: 14px; margin: 20px 0;">
+            <p style="color: #16A34A; font-weight: 600; font-size: 0.9rem;">
+              ⏱ Tiempo estimado: 5 a 15 minutos
+            </p>
           </div>
 
-          <div class="cta-unlock">
-            <h3>¿Te ha gustado el resultado?</h3>
-            <p>Descarga la canción completa en calidad máster HD sin marca de agua y envíala por WhatsApp.</p>
-            <a href="checkout.html" class="btn btn-hero full-w">🔓 Desbloquear y Recibir Canción Completa (€29,90)</a>
-          </div>
+          <p style="color: #64648C; font-size: 0.85rem; margin-top: 15px;">
+            ¿Tienes alguna duda? Escríbenos por 
+            <a href="https://wa.me/5511953493969" target="_blank" style="color: #7C3AED; font-weight: 600;">WhatsApp</a>.
+          </p>
+
+          <a href="index.html" style="display: inline-block; margin-top: 25px; color: #7C3AED; font-weight: 600; text-decoration: none;">← Volver al inicio</a>
         </div>
       </div>
 
