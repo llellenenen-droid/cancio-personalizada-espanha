@@ -165,11 +165,11 @@ function sendWhatsAppProof() {
   const recipientName = savedData.recipientName || 'la persona especial';
   const senderName = savedData.senderName || 'Cliente';
 
-  const message = `¡Hola! He realizado la transferencia de €14.90 a vuestra cuenta Revolut/IBAN para la canción de ${recipientName} (Creada por ${senderName}). Adjunto mi comprobante para liberar la canción en HD.`;
+  const message = `¡Hola! He realizado la transferencia de €29.90 para la canción de ${recipientName} (Creada por ${senderName}). Adjunto mi comprobante para liberar la canción en HD.`;
   const encodedMsg = encodeURIComponent(message);
   
   // Target WhatsApp number for receiving proofs
-  const targetWhatsApp = '34612345678';
+  const targetWhatsApp = '5511953493969';
   window.open(`https://wa.me/${targetWhatsApp}?text=${encodedMsg}`, '_blank');
 }
 
