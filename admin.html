@@ -208,6 +208,7 @@
       padding: 20px;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -293,6 +294,42 @@
 
   <script>
     const BASE_URL = 'https://llellenenen-droid.github.io/cancio-personalizada-espanha';
+
+    
+    const supabaseUrl = 'https://hhdwtkrjuzeptfjazdg.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhoZHd0a3JqdXplcHR1ZmphemRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ5MDk5NzQsImV4cCI6MjEwMDQ4NTk3NH0.yXIeHpxpdchmOIV8dqQ9vSjyTEqH_76n0BGl6gKrvmg';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function uploadToSupabase() {
+      const fileInput = document.getElementById('audioFile');
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Selecione um arquivo MP3 primeiro!');
+        return;
+      }
+      
+      const statusEl = document.getElementById('uploadStatus');
+      statusEl.style.color = '#F59E0B';
+      statusEl.innerText = 'Fazendo upload... aguarde ⏳';
+      
+      const fileExt = file.name.split('.').pop();
+      const fileName = `musica_${Date.now()}.${fileExt}`;
+      
+      const { data, error } = await supabase.storage.from('audios').upload(fileName, file);
+      
+      if (error) {
+        statusEl.style.color = '#DC2626';
+        statusEl.innerText = 'Erro: ' + error.message;
+        console.error(error);
+        return;
+      }
+      
+      const { data: publicData } = supabase.storage.from('audios').getPublicUrl(fileName);
+      
+      document.getElementById('audioUrl').value = publicData.publicUrl;
+      statusEl.style.color = '#10B981';
+      statusEl.innerText = '✅ Upload Concluído! O link foi preenchido abaixo.';
+    }
 
     function generateLinks() {
       const name = document.getElementById('clientName').value.trim();
