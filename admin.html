@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin | CantaTuHistoria</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0F0F1A;
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .admin-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+    }
+    .section {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section h2 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: #EC4899;
+    }
+    .section h2.green { color: #10B981; }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+    label:first-of-type { margin-top: 0; }
+    input[type="text"], input[type="url"] {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: 'DM Sans', sans-serif;
+    }
+    input::placeholder { color: #555; }
+    input:focus {
+      outline: none;
+      border-color: #7C3AED;
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
+    }
+    .btn-generate {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: transform 0.2s;
+    }
+    .btn-generate:hover { transform: scale(1.02); }
+    .results {
+      display: none;
+    }
+    .results.show { display: block; }
+    .result-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .result-box h3 {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .result-box h3.preview-label { color: #F59E0B; }
+    .result-box h3.delivery-label { color: #10B981; }
+    .result-box h3.whatsapp-label { color: #25D366; }
+    .link-row {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+    .link-input {
+      flex: 1;
+      padding: 12px 14px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      color: #7C3AED;
+      font-size: 0.8rem;
+      font-family: monospace;
+      word-break: break-all;
+      cursor: text;
+    }
+    .btn-copy {
+      padding: 12px 16px;
+      background: rgba(124,58,237,0.2);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 10px;
+      color: #7C3AED;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .btn-copy:hover { background: rgba(124,58,237,0.35); }
+    .btn-copy.copied {
+      background: rgba(16,185,129,0.2);
+      border-color: rgba(16,185,129,0.3);
+      color: #10B981;
+    }
+    .whatsapp-msg {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 14px;
+      color: #ccc;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      margin-bottom: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .guide-box {
+      background: rgba(124,58,237,0.08);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .guide-box h2 {
+      font-size: 1rem;
+      color: #7C3AED;
+      margin-bottom: 12px;
+    }
+    .guide-box ol {
+      padding-left: 20px;
+      color: #aaa;
+      font-size: 0.88rem;
+      line-height: 2;
+    }
+    .guide-box a {
+      color: #EC4899;
+    }
+    .history-section {
+      margin-top: 30px;
+    }
+    .history-section h2 {
+      font-size: 1rem;
+      color: #888;
+      margin-bottom: 12px;
+    }
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+    }
+    .history-item .name { color: #EC4899; font-weight: 600; }
+    .history-item .date { color: #555; font-size: 0.8rem; }
+    .history-item .actions { display: flex; gap: 6px; }
+    .history-item .btn-sm {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.06);
+      color: #aaa;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .history-item .btn-sm:hover { background: rgba(255,255,255,0.12); }
+    .empty-history {
+      color: #444;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    <h1>🎛️ Painel Admin — CantaTuHistoria</h1>
+    <p class="subtitle">Gere os links de prévia e delivery para cada cliente. Página visível apenas para você.</p>
+
+    <!-- GUIA RÁPIDO -->
+    <div class="guide-box">
+      <h2>📋 Como usar (passo a passo):</h2>
+      <ol>
+        <li>Receba o pedido no WhatsApp (dados do quiz).</li>
+        <li>Vá ao <a href="https://suno.ai" target="_blank">suno.ai</a> → gere a música → baixe o MP3.</li>
+        <li>Faça upload do MP3 no <a href="https://supabase.com" target="_blank">Supabase Storage</a> (1GB grátis) → copie o link público do arquivo.</li>
+        <li>Cole o link do áudio e o nome do cliente aqui embaixo.</li>
+        <li>Clique em "Gerar Links" → copie a mensagem de WhatsApp da <strong>prévia</strong> e envie ao cliente.</li>
+        <li>Quando o cliente pagar → copie a mensagem do <strong>delivery</strong> e envie.</li>
+      </ol>
+    </div>
+
+    <!-- GERADOR DE LINKS -->
+    <div class="section">
+      <h2>🎵 Gerar Links do Pedido</h2>
+      
+      <label>Nome do homenageado (cliente):</label>
+      <input type="text" id="clientName" placeholder="Ex: Carmen, María, Pablo...">
+
+      <label>Link do áudio MP3 (do Supabase Storage ou Google Drive):</label>
+      <input type="url" id="audioUrl" placeholder="https://xxx.supabase.co/storage/v1/.../carmen-boda.mp3">
+
+      <label>WhatsApp do cliente (com código do país):</label>
+      <input type="text" id="clientPhone" placeholder="Ex: 34612345678">
+
+      <button class="btn-generate" onclick="generateLinks()">⚡ Gerar Links</button>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div class="results" id="results">
+
+      <!-- Link de Prévia -->
+      <div class="result-box">
+        <h3 class="preview-label">🔒 Link de PRÉVIA (enviar ANTES do pagamento)</h3>
+        <div class="link-row">
+          <div class="link-input" id="previewLink"></div>
+          <button class="btn-copy" onclick="copyText('previewLink', this)">📋 Copiar</button>
+        </div>
+      </div>
+
+      <!-- Link de Delivery -->
+      <div class="result-box">
+        <h3 class="delivery-label">✅ Link de DELIVERY (enviar DEPOIS do pagamento)</h3>
+        <div class="link-row">
+          <div class="link-input" id="deliveryLink"></div>
+          <button class="btn-copy" onclick="copyText('deliveryLink', this)">📋 Copiar</button>
+        </div>
+      </div>
+
+      <!-- Mensagem WhatsApp - Prévia -->
+      <div class="result-box">
+        <h3 class="whatsapp-label">📲 Mensagem WhatsApp → PRÉVIA (copiar e enviar)</h3>
+        <div class="whatsapp-msg" id="whatsappPreview"></div>
+        <button class="btn-copy" onclick="copyText('whatsappPreview', this)" style="width:100%;">📋 Copiar Mensagem de Prévia</button>
+      </div>
+
+      <!-- Mensagem WhatsApp - Delivery -->
+      <div class="result-box">
+        <h3 class="whatsapp-label">📲 Mensagem WhatsApp → DELIVERY (copiar e enviar após pagamento)</h3>
+        <div class="whatsapp-msg" id="whatsappDelivery"></div>
+        <button class="btn-copy" onclick="copyText('whatsappDelivery', this)" style="width:100%;">📋 Copiar Mensagem de Delivery</button>
+      </div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div class="history-section">
+      <h2>📋 Últimos Pedidos</h2>
+      <div id="historyList">
+        <p class="empty-history">Nenhum pedido gerado ainda.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BASE_URL = 'https://llellenenen-droid.github.io/cancio-personalizada-espanha';
+
+    function generateLinks() {
+      const name = document.getElementById('clientName').value.trim();
+      const audioUrl = document.getElementById('audioUrl').value.trim();
+      const phone = document.getElementById('clientPhone').value.trim();
+
+      if (!name || !audioUrl) {
+        alert('Preencha o nome do cliente e o link do áudio.');
+        return;
+      }
+
+      const encodedAudio = encodeURIComponent(audioUrl);
+      const encodedName = encodeURIComponent(name);
+
+      const previewUrl = `${BASE_URL}/preview.html?song=${encodedAudio}&name=${encodedName}`;
+      const deliveryUrl = `${BASE_URL}/delivery.html?song=${encodedAudio}&name=${encodedName}`;
+
+      // Show links
+      document.getElementById('previewLink').textContent = previewUrl;
+      document.getElementById('deliveryLink').textContent = deliveryUrl;
+
+      // WhatsApp Preview Message
+      document.getElementById('whatsappPreview').textContent = 
+`🎵 ¡Hola! Tu canción personalizada para *${name}* está lista.
+
+🎧 Escucha la previa gratuita aquí:
+${previewUrl}
+
+Si te emociona, puedes desbloquear la versión completa en HD por solo €29,90.
+
+💜 CantaTuHistoria`;
+
+      // WhatsApp Delivery Message
+      document.getElementById('whatsappDelivery').textContent = 
+`✅ ¡Pago confirmado! Muchas gracias 💜
+
+🎵 Aquí tienes tu canción para *${name}* en calidad HD:
+${deliveryUrl}
+
+Puedes descargar el MP3, escucharla y compartirla por WhatsApp directamente desde la página.
+
+¡Esperamos que emocione! 🎶
+CantaTuHistoria`;
+
+      // Show results
+      document.getElementById('results').classList.add('show');
+
+      // Save to history
+      saveToHistory(name, phone, previewUrl, deliveryUrl);
+    }
+
+    function copyText(elementId, btn) {
+      const el = document.getElementById(elementId);
+      const text = el.textContent || el.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✅ Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 Copiar';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // HISTORY (localStorage)
+    function saveToHistory(name, phone, previewUrl, deliveryUrl) {
+      const history = JSON.parse(localStorage.getItem('cth_history') || '[]');
+      history.unshift({
+        name,
+        phone,
+        previewUrl,
+        deliveryUrl,
+        date: new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})
+      });
+      // Keep last 50
+      if (history.length > 50) history.pop();
+      localStorage.setItem('cth_history', JSON.stringify(history));
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const history = JSON.parse(localStorage.getItem('cth_history') || '[]');
+      const container = document.getElementById('historyList');
+      
+      if (history.length === 0) {
+        container.innerHTML = '<p class="empty-history">Nenhum pedido gerado ainda.</p>';
+        return;
+      }
+
+      container.innerHTML = history.map((item, i) => `
+        <div class="history-item">
+          <div>
+            <span class="name">🎵 ${item.name}</span>
+            <span class="date"> · ${item.date}</span>
+            ${item.phone ? `<span class="date"> · 📱 ${item.phone}</span>` : ''}
+          </div>
+          <div class="actions">
+            <button class="btn-sm" onclick="navigator.clipboard.writeText('${item.previewUrl}');this.textContent='✅'">🔒 Prévia</button>
+            <button class="btn-sm" onclick="navigator.clipboard.writeText('${item.deliveryUrl}');this.textContent='✅'">✅ Delivery</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Load history on page load
+    document.addEventListener('DOMContentLoaded', renderHistory);
+  </script>
+
+</body>
+</html>
