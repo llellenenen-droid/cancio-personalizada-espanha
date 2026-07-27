@@ -129,6 +129,10 @@ ${quizData.phrase || '(Ninguna)'}
   // Open WhatsApp to send quiz data to Alexandre
   // Small delay so the waiting screen shows first
   setTimeout(() => {
+    // Disparar evento de Compra no Pixel do Facebook
+    if (typeof fbq === 'function') {
+      fbq('track', 'Purchase', {currency: 'EUR', value: 29.00});
+    }
     window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${encodedMsg}`, '_blank');
   }, 1500);
 }
