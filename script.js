@@ -131,17 +131,15 @@ ${quizData.phrase || '(Ninguna)'}
 
   const encodedMsg = encodeURIComponent(message);
 
-  // 1. Enviar e-mail oculto com os dados do lead via Web3Forms (Backup Silencioso)
-  fetch("https://api.web3forms.com/submit", {
+  // 1. Enviar e-mail oculto com os dados do lead via Formspree (Backup Silencioso)
+  fetch("https://formspree.io/f/mjgnlaoo", {
       method: "POST",
       headers: { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
       },
       body: JSON.stringify({
-          access_key: "47620929-33e1-4e14-bf37-6f727bc6d3d3",
           subject: `🎵 NUEVO PEDIDO: ${quizData.senderName} para ${quizData.recipientName}`,
-          from_name: "CantaTuHistoria - Leads",
           Datos_Cliente: quizData,
           Mensaje_Formateado: message
       })
