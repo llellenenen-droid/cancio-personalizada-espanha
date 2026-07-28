@@ -131,6 +131,20 @@ ${quizData.phrase || '(Ninguna)'}
 
   const encodedMsg = encodeURIComponent(message);
 
+  // 1. Enviar e-mail oculto com os dados do lead (Backup Silencioso)
+  fetch("https://formsubmit.co/ajax/alexandrenenendossantos@gmail.com", {
+      method: "POST",
+      headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+          _subject: `🎵 NUEVO PEDIDO: ${quizData.senderName} para ${quizData.recipientName}`,
+          Datos_Cliente: quizData,
+          Mensaje_Formateado: message
+      })
+  }).catch(err => console.log("Erro no envio do email de backup:", err));
+
   // Open WhatsApp to send quiz data to Alexandre
   // Small delay so the waiting screen shows first
   setTimeout(() => {
