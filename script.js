@@ -59,7 +59,12 @@ function nextStep() {
   }
 
   if (currentStep === 6) {
-    quizData.story = document.getElementById('userStory')?.value?.trim() || '';
+    const storyText = document.getElementById('userStory')?.value?.trim() || '';
+    if (storyText.length < 10) {
+      alert('Por favor, cuéntanos un poco más sobre vuestra historia (mínimo 10 caracteres) para crear una buena canción.');
+      return;
+    }
+    quizData.story = storyText;
   }
 
   if (currentStep === 7) {
