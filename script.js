@@ -154,15 +154,51 @@ function toggleAudio() {
   }
 }
 
-function playDemo(btnElement, genre) {
-  const genreNames = {
-    'pop': 'Pop Español',
-    'balada': 'Balada Romántica',
-    'flamenco': 'Flamenco Fusión'
-  };
-  alert(`▶ Próximamente: ejemplo de canción en estilo ${genreNames[genre] || genre}.\n\nLas muestras estarán disponibles muy pronto.`);
-}
+let currentDemoAudio = null;
+let currentDemoGenre = null;
 
+const demoUrls = {
+  'pop': 'https://hhdwtkrjuzeptufjazdg.supabase.co/storage/v1/object/public/audios/musica_1785199538091.mp3',
+  'balada': 'https://hhdwtkrjuzeptufjazdg.supabase.co/storage/v1/object/public/audios/musica_1785199609357.mp3'
+};
+
+function playDemo(btnElement, genre) {
+  // If clicking the same genre that is currently playing
+  if (currentDemoGenre === genre && currentDemoAudio && !currentDemoAudio.paused) {
+    currentDemoAudio.pause();
+    btnElement.textContent = '▶ Escuchar Previa';
+    return;
+  }
+
+  // Stop any currently playing demo
+  if (currentDemoAudio) {
+    currentDemoAudio.pause();
+    // Reset all buttons text
+    document.querySelectorAll('.btn-play').forEach(btn => btn.textContent = '▶ Escuchar Previa');
+  }
+
+  // Load and play the new demo
+  const url = demoUrls[genre];
+  if (url) {
+    currentDemoAudio = new Audio(url);
+    currentDemoGenre = genre;
+    currentDemoAudio.play();
+    btnElement.textContent = '⏸ Pausando...';
+    
+    // Once it actually starts playing, update text
+    currentDemoAudio.onplaying = () => {
+      btnElement.textContent = '⏸ Pausar Previa';
+    };
+
+    // When audio finishes, reset button
+    currentDemoAudio.onended = () => {
+      btnElement.textContent = '▶ Escuchar Previa';
+      currentDemoGenre = null;
+    };
+  } else {
+    alert('Muestra de audio no disponible.');
+  }
+}
 // ========================================
 // CHECKOUT HELPERS
 // ========================================
