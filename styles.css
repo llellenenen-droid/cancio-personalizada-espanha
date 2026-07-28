@@ -632,6 +632,7 @@ h1, h2, h3, .serif-title {
 @media (max-width: 768px) {
   .checkout-grid { grid-template-columns: 1fr; }
   .hero-title { font-size: 2.2rem; }
+  .nav-actions { display: none; }
 }
 
 .summary-card, .payment-card {
