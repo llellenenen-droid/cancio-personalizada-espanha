@@ -151,6 +151,9 @@ function toggleAudio() {
   } else {
     isPlaying = false;
     if (playBtn) playBtn.textContent = '▶ Escuchar Previa Completa';
+  }
+}
+
 let currentDemoAudio = null;
 let currentDemoGenre = null;
 
