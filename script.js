@@ -151,18 +151,16 @@ function toggleAudio() {
   } else {
     isPlaying = false;
     if (playBtn) playBtn.textContent = '▶ Escuchar Previa Completa';
-  }
-}
-
 let currentDemoAudio = null;
 let currentDemoGenre = null;
 
-const demoUrls = {
-  'pop': 'https://hhdwtkrjuzeptufjazdg.supabase.co/storage/v1/object/public/audios/musica_1785199538091.mp3',
-  'balada': 'https://hhdwtkrjuzeptufjazdg.supabase.co/storage/v1/object/public/audios/musica_1785199609357.mp3'
-};
-
 function playDemo(btnElement, genre) {
+  const audioEl = document.getElementById('demo-' + genre);
+  if (!audioEl) {
+    alert('Muestra de audio no disponible.');
+    return;
+  }
+
   // If clicking the same genre that is currently playing
   if (currentDemoGenre === genre && currentDemoAudio && !currentDemoAudio.paused) {
     currentDemoAudio.pause();
@@ -178,26 +176,31 @@ function playDemo(btnElement, genre) {
   }
 
   // Load and play the new demo
-  const url = demoUrls[genre];
-  if (url) {
-    currentDemoAudio = new Audio(url);
-    currentDemoGenre = genre;
-    currentDemoAudio.play();
+  currentDemoAudio = audioEl;
+  currentDemoGenre = genre;
+  
+  // Try playing
+  const playPromise = currentDemoAudio.play();
+  
+  if (playPromise !== undefined) {
     btnElement.textContent = '⏸ Pausando...';
-    
-    // Once it actually starts playing, update text
-    currentDemoAudio.onplaying = () => {
+    playPromise.then(_ => {
+      // Automatic playback started!
       btnElement.textContent = '⏸ Pausar Previa';
-    };
-
-    // When audio finishes, reset button
-    currentDemoAudio.onended = () => {
+    })
+    .catch(error => {
+      // Auto-play was prevented
       btnElement.textContent = '▶ Escuchar Previa';
-      currentDemoGenre = null;
-    };
-  } else {
-    alert('Muestra de audio no disponible.');
+      console.log("Playback prevented: ", error);
+      alert('Toca el botón nuevamente para reproducir el audio.');
+    });
   }
+
+  // When audio finishes, reset button
+  currentDemoAudio.onended = () => {
+    btnElement.textContent = '▶ Escuchar Previa';
+    currentDemoGenre = null;
+  };
 }
 // ========================================
 // CHECKOUT HELPERS
