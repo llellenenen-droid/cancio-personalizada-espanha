@@ -131,7 +131,7 @@ ${quizData.phrase || '(Ninguna)'}
 
   const encodedMsg = encodeURIComponent(message);
 
-  // 1. Enviar e-mail oculto com os dados do lead via Formspree (Backup Silencioso)
+  // 1. Enviar e-mail oculto com os dados do lead via Formspree (Captura Principal)
   fetch("https://formspree.io/f/mjgnlaoo", {
       method: "POST",
       headers: { 
@@ -145,15 +145,12 @@ ${quizData.phrase || '(Ninguna)'}
       })
   }).catch(err => console.log("Erro no envio do email de backup:", err));
 
-  // Open WhatsApp to send quiz data to Alexandre
-  // Small delay so the waiting screen shows first
+  // Disparar evento de Compra no Pixel do Facebook
   setTimeout(() => {
-    // Disparar evento de Compra no Pixel do Facebook
     if (typeof fbq === 'function') {
       fbq('track', 'Purchase', {currency: 'EUR', value: 29.00});
     }
-    window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${encodedMsg}`, '_blank');
-  }, 1500);
+  }, 1000);
 }
 
 // ========================================
